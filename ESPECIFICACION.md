@@ -14,7 +14,7 @@ propios, sin tocar los ajenos**. Por eso se pueden construir en paralelo.
   reusando las variables de color que ya existen.
 - **No modifica `app.js`.** El montaje lo hace el agente principal al integrar.
 - **No modifica archivos de otro módulo.**
-- Respeta lo que dice el `CLAUDE.md` de este proyecto.
+- Respeta lo que dice el `CLAUDE.md` de este proyecto, que se escribe antes de repartir.
 
 ---
 
