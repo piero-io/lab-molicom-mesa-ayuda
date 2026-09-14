@@ -1,0 +1,29 @@
+<%- include('../layout-cabecera') %>
+  <div class="encabezado">
+    <h1>Tickets</h1>
+    <a class="boton primario" href="/tickets/nuevo">Nuevo ticket</a>
+  </div>
+
+  <% if (tickets.length === 0) { %>
+    <div class="aviso">No hay tickets registrados.</div>
+  <% } else { %>
+  <table class="tabla">
+    <thead>
+      <tr><th>#</th><th>Titulo</th><th>Area</th><th>Prioridad</th><th>Situacion</th><th>Asignado</th></tr>
+    </thead>
+    <tbody>
+      <% tickets.forEach(function (t) { %>
+      <tr>
+        <td class="mono"><%= t.id %></td>
+        <td><%= t.titulo %></td>
+        <td><%= t.area %></td>
+        <td><span class="chip p<%= t.prioridad %>"><%= PRIORIDADES[t.prioridad] %></span></td>
+        <td><span class="chip s<%= t.situacion.replace(' ', '') %>"><%= t.situacion %></span></td>
+        <td><%= t.asignado_a || '-' %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <p class="total"><%= tickets.length %> ticket(s)</p>
+  <% } %>
+<%- include('../layout-pie') %>

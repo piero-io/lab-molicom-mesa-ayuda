@@ -1,0 +1,36 @@
+<%- include('../layout-cabecera') %>
+  <h1><%= titulo %></h1>
+
+  <% if (errores.length) { %>
+    <div class="aviso error">
+      <ul><% errores.forEach(function (e) { %><li><%= e %></li><% }) %></ul>
+    </div>
+  <% } %>
+
+  <form method="post" action="/tickets/nuevo">
+    <label>Titulo
+      <input type="text" name="titulo" value="<%= ticket.titulo || '' %>" required>
+    </label>
+    <label>Descripcion
+      <textarea name="descripcion" rows="4"><%= ticket.descripcion || '' %></textarea>
+    </label>
+    <label>Area
+      <select name="area">
+        <% AREAS.forEach(function (a) { %>
+          <option value="<%= a %>" <%= ticket.area === a ? 'selected' : '' %>><%= a %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Prioridad
+      <select name="prioridad">
+        <option value="A" <%= ticket.prioridad === 'A' ? 'selected' : '' %>>Alta</option>
+        <option value="M" <%= ticket.prioridad === 'M' ? 'selected' : '' %>>Media</option>
+        <option value="B" <%= ticket.prioridad === 'B' ? 'selected' : '' %>>Baja</option>
+      </select>
+    </label>
+    <div class="botonera">
+      <button class="boton primario" type="submit">Guardar</button>
+      <a class="boton" href="/tickets">Cancelar</a>
+    </div>
+  </form>
+<%- include('../layout-pie') %>

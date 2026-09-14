@@ -1,0 +1,15 @@
+{
+  "name": "lab006-molicom-mesa-ayuda",
+  "version": "0.1.0",
+  "description": "Mesa de ayuda de TI - laboratorio de la Sesion 6 de Claude Code Professional",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  }
+}
