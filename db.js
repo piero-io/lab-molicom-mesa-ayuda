@@ -1,9 +1,13 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const sqlite3 = require('sqlite3');
 
 const RUTA_BD = path.join(__dirname, 'var', 'db', 'mesa.db');
+// La carpeta de la base no se versiona, asi que en un clon nuevo no existe.
+fs.mkdirSync(path.dirname(RUTA_BD), { recursive: true });
+
 const bd = new sqlite3.Database(RUTA_BD);
 
 // El esquema se crea si no existe. Las columnas nuevas se agregan con ALTER
