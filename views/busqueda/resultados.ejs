@@ -1,0 +1,72 @@
+<%- include('../layout-cabecera') %>
+  <div class="encabezado">
+    <h1><%= titulo %></h1>
+    <div class="busq-acciones">
+      <a class="boton" href="/export/tickets.csv<%= queryString %>">Exportar a CSV</a>
+      <a class="boton" href="/tickets">Volver al listado</a>
+    </div>
+  </div>
+
+  <form method="get" action="/tickets/buscar" class="busq-form">
+    <label class="busq-texto">Texto
+      <input type="text" name="q" value="<%= filtros.q %>" placeholder="Busca en titulo y descripcion">
+    </label>
+    <label>Area
+      <select name="area">
+        <option value="" <%= filtros.area === '' ? 'selected' : '' %>>Todas</option>
+        <% AREAS.forEach(function (a) { %>
+          <option value="<%= a %>" <%= filtros.area === a ? 'selected' : '' %>><%= a %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Prioridad
+      <select name="prioridad">
+        <option value="" <%= filtros.prioridad === '' ? 'selected' : '' %>>Todas</option>
+        <% Object.keys(PRIORIDADES).forEach(function (p) { %>
+          <option value="<%= p %>" <%= filtros.prioridad === p ? 'selected' : '' %>><%= PRIORIDADES[p] %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Situacion
+      <select name="situacion">
+        <option value="" <%= filtros.situacion === '' ? 'selected' : '' %>>Todas</option>
+        <% SITUACIONES.forEach(function (s) { %>
+          <option value="<%= s %>" <%= filtros.situacion === s ? 'selected' : '' %>><%= s %></option>
+        <% }) %>
+      </select>
+    </label>
+    <div class="busq-botonera">
+      <button class="boton primario" type="submit">Buscar</button>
+      <a class="boton" href="/tickets/buscar">Limpiar</a>
+    </div>
+  </form>
+
+  <% if (recortado) { %>
+    <div class="aviso busq-recorte">
+      El listado esta recortado a los primeros <%= tickets.length %> resultados. Afina los filtros para ver el resto.
+    </div>
+  <% } %>
+
+  <% if (tickets.length === 0) { %>
+    <div class="aviso">No se encontraron tickets con esos criterios.</div>
+  <% } else { %>
+  <table class="tabla">
+    <thead>
+      <tr><th>#</th><th>Titulo</th><th>Area</th><th>Prioridad</th><th>Situacion</th><th>Asignado</th></tr>
+    </thead>
+    <tbody>
+      <% tickets.forEach(function (t) { %>
+      <tr>
+        <td class="mono"><%= t.id %></td>
+        <td><a class="busq-enlace" href="/tickets/<%= t.id %>"><%= t.titulo %></a></td>
+        <td><%= t.area %></td>
+        <td><span class="chip p<%= t.prioridad %>"><%= PRIORIDADES[t.prioridad] %></span></td>
+        <td><span class="chip s<%= t.situacion.replace(' ', '') %>"><%= t.situacion %></span></td>
+        <td><%= t.asignado_a || '-' %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <p class="total"><%= tickets.length %> ticket(s) encontrado(s)</p>
+  <% } %>
+<%- include('../layout-pie') %>

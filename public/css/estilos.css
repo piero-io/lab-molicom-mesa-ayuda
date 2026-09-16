@@ -42,3 +42,64 @@ form label{display:block;margin-bottom:12px;font-size:13px;color:var(--apagado)}
 form input,form select,form textarea{display:block;width:100%;margin-top:4px;padding:9px 12px;
   border:1px solid var(--linea);border-radius:6px;font:inherit;color:var(--tinta);background:#fff}
 .botonera{display:flex;gap:8px;margin-top:18px}
+
+/* --- Modulo A · Asignacion --- */
+.asig-ficha{background:var(--superficie);border:1px solid var(--linea);border-radius:8px;
+  padding:18px 20px;margin-bottom:18px}
+.asig-titulo{font-size:19px;margin:0 0 6px}
+.asig-descripcion{margin:0 0 14px;color:var(--tinta);white-space:pre-line}
+.asig-vacio{color:var(--apagado);font-style:italic}
+.asig-datos{display:grid;grid-template-columns:140px 1fr;gap:8px 16px;margin:0;
+  padding-top:14px;border-top:1px solid var(--linea)}
+.asig-datos dt{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--apagado);
+  align-self:center}
+.asig-datos dd{margin:0}
+.asig-atender{background:var(--superficie);border:1px solid var(--linea);border-radius:8px;
+  padding:18px 20px}
+.asig-subtitulo{font-size:16px;margin:0 0 12px}
+.asig-campos{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.asig-nota{font-size:13px;color:var(--ambar);margin:0}
+@media (max-width:640px){
+  .asig-datos{grid-template-columns:1fr}
+  .asig-campos{grid-template-columns:1fr}
+}
+
+/* --- Modulo B · Busqueda --- */
+.busq-acciones{display:flex;gap:8px}
+.busq-form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;align-items:end;
+  background:var(--superficie);border:1px solid var(--linea);border-radius:8px;
+  padding:14px 16px;margin-bottom:16px}
+.busq-form label{margin-bottom:0}
+.busq-botonera{grid-column:1 / -1;display:flex;gap:8px}
+.busq-recorte{border-left-color:var(--ambar);margin-bottom:12px}
+.busq-enlace{color:var(--primario);text-decoration:none}
+.busq-enlace:hover{text-decoration:underline}
+@media (max-width:720px){.busq-form{grid-template-columns:1fr}}
+
+/* --- Modulo C · Panel --- */
+.panel-tarjeta{background:var(--superficie);border:1px solid var(--linea);border-radius:8px;padding:16px 18px}
+.panel-cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:14px}
+.panel-cifra{display:flex;flex-direction:column;gap:2px}
+.panel-cifra-numero{font-size:32px;font-weight:600;line-height:1.1}
+.panel-cifra-numero.panel-alerta{color:var(--rojo)}
+.panel-cifra-texto{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--apagado)}
+.panel-grilla{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.panel-titulo{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--apagado);margin:0 0 12px;font-weight:600}
+.panel-barras{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.panel-fila{display:grid;grid-template-columns:110px 1fr 36px;align-items:center;gap:10px;font-size:14px}
+.panel-etiqueta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.panel-pista{display:block;height:12px;background:var(--papel);border-radius:999px;overflow:hidden}
+.panel-barra{display:block;height:100%;border-radius:999px;background:var(--primario);min-width:0}
+.panel-barra.panel-rojo{background:var(--rojo)}
+.panel-barra.panel-ambar{background:var(--ambar)}
+.panel-barra.panel-verde{background:var(--verde)}
+.panel-barra.panel-gris{background:var(--gris)}
+.panel-barra.panel-primario{background:var(--primario)}
+.panel-cantidad{text-align:right;color:var(--apagado)}
+.panel-vacio{margin:0;color:var(--apagado)}
+.panel-antiguo-titulo{margin:0 0 10px;font-weight:600}
+.panel-antiguo-titulo a{color:var(--primario);text-decoration:none}
+.panel-antiguo-titulo a:hover{text-decoration:underline}
+.panel-datos{display:grid;grid-template-columns:90px 1fr;gap:6px 10px;margin:0;font-size:14px}
+.panel-datos dt{color:var(--apagado)}
+.panel-datos dd{margin:0}

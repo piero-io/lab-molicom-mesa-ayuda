@@ -1,0 +1,74 @@
+<%- include('../layout-cabecera') %>
+  <div class="encabezado">
+    <h1><%= titulo %></h1>
+    <a class="boton" href="/tickets">Volver al listado</a>
+  </div>
+
+  <% if (errores.length) { %>
+    <div class="aviso error">
+      <ul><% errores.forEach(function (e) { %><li><%= e %></li><% }) %></ul>
+    </div>
+  <% } %>
+
+  <section class="asig-ficha">
+    <h2 class="asig-titulo"><%= ticket.titulo %></h2>
+    <% if (ticket.descripcion) { %>
+      <p class="asig-descripcion"><%= ticket.descripcion %></p>
+    <% } else { %>
+      <p class="asig-descripcion asig-vacio">Sin descripcion.</p>
+    <% } %>
+
+    <dl class="asig-datos">
+      <dt>Id</dt>
+      <dd class="mono"><%= ticket.id %></dd>
+      <dt>Area</dt>
+      <dd><%= ticket.area %></dd>
+      <dt>Prioridad</dt>
+      <dd><span class="chip p<%= ticket.prioridad %>"><%= PRIORIDADES[ticket.prioridad] || ticket.prioridad %></span></dd>
+      <dt>Situacion</dt>
+      <dd><span class="chip s<%= ticket.situacion.replace(' ', '') %>"><%= ticket.situacion %></span></dd>
+      <dt>Asignado</dt>
+      <dd><%= ticket.asignado_a || '-' %></dd>
+      <dt>Creado</dt>
+      <dd>por <b><%= ticket.creado_por %></b> el <span class="mono"><%= ticket.creado_en %></span></dd>
+      <dt>Actualizado</dt>
+      <dd>
+        <% if (ticket.actualizado_por) { %>
+          por <b><%= ticket.actualizado_por %></b> el <span class="mono"><%= ticket.actualizado_en %></span>
+        <% } else { %>
+          <span class="asig-vacio">Sin cambios</span>
+        <% } %>
+      </dd>
+    </dl>
+  </section>
+
+  <section class="asig-atender">
+    <h2 class="asig-subtitulo">Atender ticket</h2>
+    <form method="post" action="/tickets/<%= ticket.id %>/atender">
+      <div class="asig-campos">
+        <label>Asignar a
+          <select name="asignado_a">
+            <option value="" <%= formulario.asignadoA === '' ? 'selected' : '' %>>-- Elegir --</option>
+            <% EQUIPO_TI.forEach(function (persona) { %>
+              <option value="<%= persona %>" <%= formulario.asignadoA === persona ? 'selected' : '' %>><%= persona %></option>
+            <% }) %>
+          </select>
+        </label>
+        <label>Situacion
+          <select name="situacion">
+            <% SITUACIONES.forEach(function (s) { %>
+              <option value="<%= s %>" <%= formulario.situacion === s ? 'selected' : '' %>><%= s %></option>
+            <% }) %>
+          </select>
+        </label>
+      </div>
+      <% if (ticket.situacion === 'RESUELTO') { %>
+        <p class="asig-nota">Este ticket esta RESUELTO: solo puede pasar a EN CURSO, no vuelve a ABIERTO.</p>
+      <% } %>
+      <div class="botonera">
+        <button class="boton primario" type="submit">Guardar cambios</button>
+        <a class="boton" href="/tickets">Cancelar</a>
+      </div>
+    </form>
+  </section>
+<%- include('../layout-pie') %>

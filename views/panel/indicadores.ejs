@@ -1,0 +1,57 @@
+<%- include('../layout-cabecera') %>
+  <div class="encabezado">
+    <h1>Panel de indicadores</h1>
+    <a class="boton" href="/tickets">Ver tickets</a>
+  </div>
+
+  <div class="panel-cifras">
+    <div class="panel-tarjeta panel-cifra">
+      <span class="panel-cifra-numero"><%= total %></span>
+      <span class="panel-cifra-texto">Tickets vigentes</span>
+    </div>
+    <div class="panel-tarjeta panel-cifra">
+      <span class="panel-cifra-numero <%= sinAsignar > 0 ? 'panel-alerta' : '' %>"><%= sinAsignar %></span>
+      <span class="panel-cifra-texto">Sin asignar y sin resolver</span>
+    </div>
+  </div>
+
+  <div class="panel-grilla">
+    <% [
+      { titulo: 'Por situacion', barras: situaciones },
+      { titulo: 'Por prioridad', barras: prioridades },
+      { titulo: 'Por area',      barras: areas }
+    ].forEach(function (grupo) { %>
+    <section class="panel-tarjeta">
+      <h2 class="panel-titulo"><%= grupo.titulo %></h2>
+      <ul class="panel-barras">
+        <% grupo.barras.forEach(function (b) { %>
+        <li class="panel-fila">
+          <span class="panel-etiqueta"><%= b.etiqueta %></span>
+          <span class="panel-pista">
+            <span class="panel-barra panel-<%= b.color %>" style="width: <%= b.porcentaje %>%"></span>
+          </span>
+          <span class="panel-cantidad mono"><%= b.cantidad %></span>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+    <% }) %>
+
+    <section class="panel-tarjeta">
+      <h2 class="panel-titulo">Mas antiguo sin resolver</h2>
+      <% if (!masAntiguo) { %>
+        <p class="panel-vacio">No hay tickets pendientes</p>
+      <% } else { %>
+        <p class="panel-antiguo-titulo">
+          <a href="/tickets/<%= masAntiguo.id %>">#<%= masAntiguo.id %> · <%= masAntiguo.titulo %></a>
+        </p>
+        <dl class="panel-datos">
+          <dt>Area</dt><dd><%= masAntiguo.area %></dd>
+          <dt>Situacion</dt>
+          <dd><span class="chip s<%= masAntiguo.situacion.replace(' ', '') %>"><%= masAntiguo.situacion %></span></dd>
+          <dt>Creado</dt><dd class="mono"><%= masAntiguo.creado_legible %></dd>
+        </dl>
+      <% } %>
+    </section>
+  </div>
+<%- include('../layout-pie') %>

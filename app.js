@@ -23,14 +23,14 @@ app.use(function (req, res, next) {
 // ---------------------------------------------------------------------------
 // PUNTO DE INTEGRACION
 // Aqui se montan los modulos. Cada modulo vive en su propio archivo dentro de
-// routes/ y expone un router de Express. Este bloque lo escribe el agente
-// principal al integrar, no los subagentes.
+// routes/ y expone un router de Express. Un modulo nuevo se agrega aqui, y
+// solo aqui.
 // ---------------------------------------------------------------------------
 app.use('/tickets', require('./routes/tickets'));
-// app.use('/tickets', require('./routes/asignacion'));
-// app.use('/tickets', require('./routes/busqueda'));
-// app.use('/panel',   require('./routes/panel'));
-// app.use('/export',  require('./routes/exportacion'));
+app.use('/tickets', require('./routes/asignacion'));
+app.use('/tickets', require('./routes/busqueda'));
+app.use('/panel',   require('./routes/panel'));
+app.use('/export',  require('./routes/exportacion'));
 
 app.get('/', function (req, res) {
   res.redirect('/tickets');
